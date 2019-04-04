@@ -6,7 +6,7 @@ const cors = require('cors')
 const users = require('./routes/users.route');
 const games = require('./routes/games.route');
 
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 
 const PORT = 1234;
 const DEV_DB_URL = 'mongodb://tomorps:Llcl1992%40%40@ds121636.mlab.com:21636/tomorps';
