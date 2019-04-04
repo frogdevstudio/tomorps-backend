@@ -9,7 +9,7 @@ module.exports = {
                 pass : 'Llcl1992'
             }
         });
-       
+        
         transporter.sendMail(mailOptions, (error, info) => {
             if(error) {
                 console.log(error);

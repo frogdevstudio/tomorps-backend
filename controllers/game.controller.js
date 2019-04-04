@@ -6,14 +6,19 @@ exports.join = (req, res, next) => {
         if (err) 
             return next(err);
 
-        let mailOptions = {
-            from : 'TomoRPS <tomorps.online@gmail.com',
-            to : user.email,
-            subject : 'Notification: You have a game need to reveal!',
-            text : 'Game #' + req.body.gameId + ' was finished! Please go to reveal result! Thank you!',
-        };
-            
-        utils.sendEmail(mailOptions)
-        res.send('Join game successfully!');
+        if(user) {
+            let mailOptions = {
+                from : 'TomoRPS <tomorps.online@gmail.com',
+                to : user.email,
+                subject : 'Notification: You have a game need to reveal!',
+                text : 'Game #' + req.body.gameId + ' was finished! Please go to reveal result in 1 hour! Thank you!',
+            };
+            utils.sendEmail(mailOptions);
+            res.send('Join game successed');
+        }
+        else {
+            res.send('Join game failed! User not found');
+        }
+
     });
 };
