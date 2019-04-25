@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const fs = require("fs");
+const https = require("https");
 
 const users = require('./routes/users.route');
 const games = require('./routes/games.route');
@@ -10,6 +12,12 @@ process.env.NODE_ENV = 'production';
 
 const PORT = 1234;
 const DEV_DB_URL = 'mongodb://tomorps:Llcl1992%40%40@ds121636.mlab.com:21636/tomorps';
+
+const sslOptions = {
+  key: fs.readFileSync('yolostudio_xyz.key'),
+  cert: fs.readFileSync('yolostudio_xyz.crt'),
+  ca: fs.readFileSync('yolostudio_xyz.ca-bundle')
+};
 
 //Initialize our express app
 const app = express();
@@ -42,6 +50,6 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).send(err.message);
   });
 
-app.listen(PORT, () => {
-    console.log('Server is up and running on port: ' + PORT);
+https.createServer(sslOptions, app).listen(PORT, function() {
+  console.log('TomoRPS is up and running on port: ' + PORT);
 });
